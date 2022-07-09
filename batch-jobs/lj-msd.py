@@ -4,27 +4,28 @@ import hoomd
 import gsd.hoomd
 import itertools
 import numpy as np
+import math
 import freud
 
 #key variables
-m = 4 #increase for more atoms
+m = 7 #increase for more atoms
 N_particles = 4 * m**3 #helper for initialization
-Temperature = 0.5
+Temperature = 1.2
 
-tau = 0.1
+tau = 0.2
 trajfile = 'nvt.gsd'
 write_period = 1e5 
-maxtime = 5e6
+maxtime = 1e6
 
 ############################
 # Turn on HOOMD and initialize configuration
-cpu = hoomd.device.CPU()
-sim = hoomd.Simulation(device=cpu,seed=0)
+gpu = hoomd.device.GPU()
+sim = hoomd.Simulation(device=gpu,seed=0)
 
 spacing = 1.3
 K = math.ceil(N_particles**(1 / 3))
 L = K * spacing
-x = numpy.linspace(-L / 2, L / 2, K, endpoint=False)
+x = np.linspace(-L / 2, L / 2, K, endpoint=False)
 position = list(itertools.product(x, repeat=3))
 
 snapshot = gsd.hoomd.Snapshot()
@@ -76,8 +77,8 @@ with gsd.hoomd.open(trajfile,'rb') as traj:
         step.append(frame.configuration.step)
         tps.append(frame.configuration.step)
         volume.append(frame.log['md/compute/ThermodynamicQuantities/volume'][0])
-step, tps, volume= np.array(step), np.array(tps), np.array(density)
-print("N={} T={}, V={}: TPS={}".format(N_particles, Temperature, , volume.mean(),  tps.mean()) )
+step, tps, volume= np.array(step), np.array(tps), np.array(volume)
+print("N={} T={}, V={}: TPS={}".format(N_particles, Temperature, volume.mean(),  tps.mean()) )
 
 ##############################
 # MSD analysis
@@ -102,7 +103,7 @@ with gsd.hoomd.open(trajfile, "rb") as trajectory:
             "are [0,0,0]. You may want to ensure this gsd file "
             "had the particle images written to it."
             )
-    msd = freud.msd.MSD(box=init_box, mode=msd_mode)
+    msd = freud.msd.MSD(box=init_box, mode='window')
     msd.compute(np.array(positions), np.array(images), reset=False)
-    msd.particle_msd #pickle this TODO
+    np.save("msd.npy", msd.particle_msd)
 
