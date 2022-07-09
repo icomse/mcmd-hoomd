@@ -7,7 +7,7 @@ import numpy as np
 import math
 
 #key variables
-m = 7 #increase for more atoms
+m = 20 #increase for more atoms
 N_particles = 4 * m**3 #helper for initialization
 Temperature = 1.2
 Pressure = 1.0
@@ -75,7 +75,7 @@ N = 0
 with gsd.hoomd.open(trajfile,'rb') as traj:
     for frame in traj:
         step.append(frame.configuration.step)
-        tps.append(frame.configuration.step)
+        tps.append(frame.log['Simulation/tps'][0])
         density.append(frame.log['md/compute/ThermodynamicQuantities/volume'][0])
 step, tps, density = np.array(step), np.array(tps), np.array(density)/N_particles
 print("N={} T={}, P={}: density={:.3f} +/- {:.3f}, TPS={}".format(N_particles, Temperature, Pressure, density.mean(), density.std(), tps.mean()) ) #pretty-print better?

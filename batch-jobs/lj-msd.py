@@ -75,7 +75,7 @@ N = 0
 with gsd.hoomd.open(trajfile,'rb') as traj:
     for frame in traj:
         step.append(frame.configuration.step)
-        tps.append(frame.configuration.step)
+        tps.append(frame.log['Simulation/tps'][0])
         volume.append(frame.log['md/compute/ThermodynamicQuantities/volume'][0])
 step, tps, volume= np.array(step), np.array(tps), np.array(volume)
 print("N={} T={}, V={}: TPS={}".format(N_particles, Temperature, volume.mean(),  tps.mean()) )

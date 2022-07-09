@@ -8,5 +8,6 @@
 #SBATCH --time=00:30:00
 #SBATCH --account=see220002p
 
-singularity exec /ocean/projects/see220002p/shared/icomse_cpu.sif python test-cpu.py
+T=1.4
+singularity exec /ocean/projects/see220002p/shared/icomse_cpu.sif python test-cpu.py $SLURM_JOB_ID $T
 
