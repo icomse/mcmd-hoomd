@@ -77,7 +77,7 @@ with gsd.hoomd.open(trajfile,'rb') as traj:
         tps.append(frame.configuration.step)
         volume.append(frame.log['md/compute/ThermodynamicQuantities/volume'][0])
 step, tps, volume= np.array(step), np.array(tps), np.array(density)
-print("N={} T={}, V={}: TPS={}".format(N_particles, Temperature, , volume.mean(),  tps.mean()) 
+print("N={} T={}, V={}: TPS={}".format(N_particles, Temperature, , volume.mean(),  tps.mean()) )
 
 ##############################
 # MSD analysis

@@ -77,5 +77,5 @@ with gsd.hoomd.open(filename,'rb') as traj:
         tps.append(frame.configuration.step)
         density.append(frame.log['md/compute/ThermodynamicQuantities/volume'][0])
 step, tps, density = np.array(step), np.array(tps), np.array(density)/N_particles
-print("N={} T={}, P={}: density={} +/- {}, TPS={}".format(N_particles, Temperature, Pressure, density.mean(), density.std(), tps.mean()) #pretty-print better?
+print("N={} T={}, P={}: density={} +/- {}, TPS={}".format(N_particles, Temperature, Pressure, density.mean(), density.std(), tps.mean()) ) #pretty-print better?
 
