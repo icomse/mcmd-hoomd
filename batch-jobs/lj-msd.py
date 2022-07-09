@@ -10,10 +10,10 @@ import freud
 #key variables
 m = 7 #increase for more atoms
 N_particles = 4 * m**3 #helper for initialization
-Temperature = 1.2
+Temperature = float(sys.argv[2])
 
 tau = 0.2
-trajfile = 'nvt.gsd'
+trajfile = 'nvt'+sys.argv[1]+'.gsd'
 write_period = 1e5 
 maxtime = 1e6
 

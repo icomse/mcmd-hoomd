@@ -5,16 +5,17 @@ import gsd.hoomd
 import itertools
 import numpy as np
 import math
+import sys
 
 #key variables
 m = 20 #increase for more atoms
 N_particles = 4 * m**3 #helper for initialization
-Temperature = 1.2
+Temperature = float(sys.argv[2])
 Pressure = 1.0
 
 tau = 0.2
 tauS = 0.2
-trajfile = 'npt.gsd'
+trajfile = 'npt'+sys.argv[1]+'.gsd'
 write_period = 1e5 
 maxtime = 5e6
 
