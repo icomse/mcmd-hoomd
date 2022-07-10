@@ -1,0 +1,4 @@
+*.[o,e]
+*.npy
+n*.gsd
+.ipynb_checkpoints
