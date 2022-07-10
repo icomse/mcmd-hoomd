@@ -6,6 +6,7 @@ import itertools
 import numpy as np
 import math
 import freud
+import sys
 
 #key variables
 m = 7 #increase for more atoms
@@ -14,7 +15,7 @@ Temperature = float(sys.argv[2])
 
 tau = 0.2
 trajfile = 'nvt'+sys.argv[1]+'.gsd'
-write_period = 1e5 
+write_period = 1e4 
 maxtime = 1e6
 
 ############################

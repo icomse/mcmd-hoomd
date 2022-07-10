@@ -8,7 +8,7 @@ import math
 import sys
 
 #key variables
-m = 20 #increase for more atoms
+m = 25 #increase for more atoms
 N_particles = 4 * m**3 #helper for initialization
 Temperature = float(sys.argv[2])
 Pressure = 1.0
